@@ -3,6 +3,7 @@ import "dart:typed_data";
 
 import 'package:image/image.dart' as imgLib;
 import "package:photos/services/object_detection/tflite/classifier.dart";
+import "package:photos/services/object_detection/tflite/clip_image_encoder.dart";
 import 'package:photos/services/object_detection/tflite/cocossd_classifier.dart';
 import "package:photos/services/object_detection/tflite/mobilenet_classifier.dart";
 import "package:photos/services/object_detection/tflite/scene_classifier.dart";
@@ -51,10 +52,14 @@ class IsolateUtils {
         interpreter: interpreter,
         labels: isolateData.labels,
       );
-    } else {
+    } else if (isolateData.type == ClassifierType.scenes) {
       return SceneClassifier(
         interpreter: interpreter,
         labels: isolateData.labels,
+      );
+    } else {
+      return ClipImageEncoder(
+        interpreter: interpreter,
       );
     }
   }
@@ -80,4 +85,5 @@ enum ClassifierType {
   cocossd,
   mobilenet,
   scenes,
+  clip,
 }

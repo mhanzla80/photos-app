@@ -4,6 +4,7 @@ import "dart:typed_data";
 import "package:logging/logging.dart";
 import "package:photos/services/object_detection/models/predictions.dart";
 import 'package:photos/services/object_detection/models/recognition.dart';
+import "package:photos/services/object_detection/tflite/clip_image_encoder.dart";
 import 'package:photos/services/object_detection/tflite/cocossd_classifier.dart';
 import "package:photos/services/object_detection/tflite/mobilenet_classifier.dart";
 import "package:photos/services/object_detection/tflite/scene_classifier.dart";
@@ -17,6 +18,7 @@ class ObjectDetectionService {
   late CocoSSDClassifier _objectClassifier;
   late MobileNetClassifier _mobileNetClassifier;
   late SceneClassifier _sceneClassifier;
+  late ClipImageEncoder _clipImageEncoder;
 
   late IsolateUtils _isolateUtils;
 
@@ -28,6 +30,7 @@ class ObjectDetectionService {
     _objectClassifier = CocoSSDClassifier();
     _mobileNetClassifier = MobileNetClassifier();
     _sceneClassifier = SceneClassifier();
+    _clipImageEncoder = ClipImageEncoder();
   }
 
   static ObjectDetectionService instance =
@@ -39,6 +42,7 @@ class ObjectDetectionService {
       results.addAll(await _getObjects(bytes));
       results.addAll(await _getMobileNetResults(bytes));
       results.addAll(await _getSceneResults(bytes));
+      await _runClip(bytes);
       return results.toList();
     } catch (e, s) {
       _logger.severe(e, s);
@@ -74,6 +78,16 @@ class ObjectDetectionService {
       ClassifierType.scenes,
     );
     return _getPredictions(isolateData);
+  }
+
+  Future<void> _runClip(Uint8List bytes) async {
+    final isolateData = IsolateData(
+      bytes,
+      _clipImageEncoder.interpreter.address,
+      [],
+      ClassifierType.clip,
+    );
+    await _getPredictions(isolateData);
   }
 
   Future<List<String>> _getPredictions(IsolateData isolateData) async {
