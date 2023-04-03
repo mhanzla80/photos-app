@@ -655,8 +655,6 @@
 					"\"UserNotifications\"",
 					"-force_load",
 					"${PODS_ROOT}/../.symlinks/plugins/flutter_sodium/ios/libsodium.a",
-					"-force_load",
-					"$(SRCROOT)/Pods/TensorFlowLiteSelectTfOps/Frameworks/TensorFlowLiteSelectTfOps.xcframework/ios-arm64/TensorFlowLiteSelectTfOps.framework/TensorFlowLiteSelectTfOps",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.ente.frame;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -959,8 +957,6 @@
 					"\"UserNotifications\"",
 					"-force_load",
 					"${PODS_ROOT}/../.symlinks/plugins/flutter_sodium/ios/libsodium.a",
-					"-force_load",
-					"$(SRCROOT)/Pods/TensorFlowLiteSelectTfOps/Frameworks/TensorFlowLiteSelectTfOps.xcframework/ios-arm64/TensorFlowLiteSelectTfOps.framework/TensorFlowLiteSelectTfOps",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.ente.frame;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1140,8 +1136,6 @@
 					"\"UserNotifications\"",
 					"-force_load",
 					"${PODS_ROOT}/../.symlinks/plugins/flutter_sodium/ios/libsodium.a",
-					"-force_load",
-					"$(SRCROOT)/Pods/TensorFlowLiteSelectTfOps/Frameworks/TensorFlowLiteSelectTfOps.xcframework/ios-arm64/TensorFlowLiteSelectTfOps.framework/TensorFlowLiteSelectTfOps",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.ente.frame;
 				PRODUCT_NAME = "$(TARGET_NAME)";
