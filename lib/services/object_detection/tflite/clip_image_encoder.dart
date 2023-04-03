@@ -37,13 +37,14 @@ class ClipImageEncoder extends Classifier {
 
     final preProcessElapsedTime =
         DateTime.now().millisecondsSinceEpoch - preProcessStart;
-    final outputLocations = TensorBufferFloat(outputShapes[0]);
+    final output = TensorBufferFloat(outputShapes[0]);
     final outputs = {
-      0: outputLocations.buffer,
+      0: output.buffer,
     };
-
     final inferenceTimeStart = DateTime.now().millisecondsSinceEpoch;
+
     interpreter.run(inputImage.buffer, outputs);
+
     final inferenceTimeElapsed =
         DateTime.now().millisecondsSinceEpoch - inferenceTimeStart;
     final predictElapsedTime =
