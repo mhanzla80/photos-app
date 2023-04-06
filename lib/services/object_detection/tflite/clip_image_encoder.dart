@@ -11,7 +11,7 @@ class ClipImageEncoder extends Classifier {
   static const double threshold = 0.5;
 
   @override
-  String get modelPath => "models/clip/clip-image.tflite";
+  String get modelPath => "models/clip/clip_image_tf25_optimized.tflite";
 
   @override
   String get labelPath => "";
@@ -31,9 +31,17 @@ class ClipImageEncoder extends Classifier {
     final predictStartTime = DateTime.now().millisecondsSinceEpoch;
     final preProcessStart = DateTime.now().millisecondsSinceEpoch;
 
-    TensorImage inputImage = TensorImage(TfLiteType.float32);
-    inputImage.loadImage(image_lib.grayscale(image));
+    TensorImage inputImage = TensorImage.fromImage(image);
     inputImage = getProcessedImage(inputImage);
+
+    bool foundNonZeroValue = false;
+
+    for (final value in inputImage.getTensorBuffer().getDoubleList()) {
+      if (value != 0) {
+        foundNonZeroValue = true;
+      }
+    }
+    _logger.info("Input foundNonZeroValue?" + foundNonZeroValue.toString());
 
     final preProcessElapsedTime =
         DateTime.now().millisecondsSinceEpoch - preProcessStart;
@@ -43,7 +51,20 @@ class ClipImageEncoder extends Classifier {
     };
     final inferenceTimeStart = DateTime.now().millisecondsSinceEpoch;
 
-    interpreter.run(inputImage.buffer, outputs);
+    try {
+      interpreter.run(inputImage.buffer, outputs);
+    } catch (e, s) {
+      _logger.severe(e, s);
+    }
+
+    foundNonZeroValue = false;
+
+    for (final value in output.getDoubleList()) {
+      if (value != 0) {
+        foundNonZeroValue = true;
+      }
+    }
+    _logger.info("foundNonZeroValue?" + foundNonZeroValue.toString());
 
     final inferenceTimeElapsed =
         DateTime.now().millisecondsSinceEpoch - inferenceTimeStart;

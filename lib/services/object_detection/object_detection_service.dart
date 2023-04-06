@@ -1,6 +1,7 @@
 import "dart:isolate";
 import "dart:typed_data";
 
+import 'package:image/image.dart' as imgLib;
 import "package:logging/logging.dart";
 import "package:photos/services/object_detection/models/predictions.dart";
 import 'package:photos/services/object_detection/models/recognition.dart';
@@ -58,9 +59,9 @@ class ObjectDetectionService {
   Future<List<String>> predict(Uint8List bytes) async {
     try {
       final results = <String>{};
-      results.addAll(await _getObjects(bytes));
-      results.addAll(await _getMobileNetResults(bytes));
-      results.addAll(await _getSceneResults(bytes));
+      // results.addAll(await _getObjects(bytes));
+      // results.addAll(await _getMobileNetResults(bytes));
+      // results.addAll(await _getSceneResults(bytes));
       await _runClip(bytes);
       return results.toList();
     } catch (e, s) {
@@ -115,13 +116,14 @@ class ObjectDetectionService {
   }
 
   Future<void> _runClip(Uint8List bytes) async {
-    final isolateData = IsolateData(
-      bytes,
-      _clipImageEncoder.interpreter.address,
-      [],
-      ClassifierType.clip,
-    );
-    await _getPredictions(isolateData);
+    _clipImageEncoder.predict(imgLib.decodeImage(bytes)!);
+    // final isolateData = IsolateData(
+    //   bytes,
+    //   _clipImageEncoder.interpreter.address,
+    //   [],
+    //   ClassifierType.clip,
+    // );
+    // await _getPredictions(isolateData);
   }
 
   Future<List<String>> _getPredictions(IsolateData isolateData) async {
