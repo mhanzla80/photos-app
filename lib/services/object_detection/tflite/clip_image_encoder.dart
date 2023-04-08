@@ -3,6 +3,7 @@ import "package:logging/logging.dart";
 import "package:photos/services/object_detection/models/predictions.dart";
 import "package:photos/services/object_detection/models/stats.dart";
 import "package:photos/services/object_detection/tflite/classifier.dart";
+import "package:photos/services/object_detection/tflite/constants.dart";
 import "package:tflite_flutter/tflite_flutter.dart";
 import "package:tflite_flutter_helper/tflite_flutter_helper.dart";
 
@@ -11,7 +12,7 @@ class ClipImageEncoder extends Classifier {
   static const double threshold = 0.5;
 
   @override
-  String get modelPath => "models/clip/clip_image_tf25_optimized.tflite";
+  String get modelPath => "models/clip/clip-image.tflite";
 
   @override
   String get labelPath => "";
@@ -31,17 +32,19 @@ class ClipImageEncoder extends Classifier {
     final predictStartTime = DateTime.now().millisecondsSinceEpoch;
     final preProcessStart = DateTime.now().millisecondsSinceEpoch;
 
-    TensorImage inputImage = TensorImage.fromImage(image);
-    inputImage = getProcessedImage(inputImage);
+    // TensorImage inputImage = TensorImage.fromImage(image);
+    // inputImage = getProcessedImage(inputImage);
 
-    bool foundNonZeroValue = false;
+    // bool foundNonZeroValue = false;
 
-    for (final value in inputImage.getTensorBuffer().getDoubleList()) {
-      if (value != 0) {
-        foundNonZeroValue = true;
-      }
-    }
-    _logger.info("Input foundNonZeroValue?" + foundNonZeroValue.toString());
+    // for (final value in inputImage.getTensorBuffer().getDoubleList()) {
+    //   if (value != 0) {
+    //     foundNonZeroValue = true;
+    //   }
+    // }
+    // _logger.info("Input foundNonZeroValue?" + foundNonZeroValue.toString());
+    // _logger.info(
+    //     "Input: " + inputImage.getTensorBuffer().getDoubleList().toString());
 
     final preProcessElapsedTime =
         DateTime.now().millisecondsSinceEpoch - preProcessStart;
@@ -52,19 +55,21 @@ class ClipImageEncoder extends Classifier {
     final inferenceTimeStart = DateTime.now().millisecondsSinceEpoch;
 
     try {
-      interpreter.run(inputImage.buffer, outputs);
+      final input = TensorBufferFloat([1, 3, 224, 224]);
+      input.loadList(kKnownValue, shape: [1, 3, 224, 224]);
+      interpreter.run(input.buffer, outputs);
     } catch (e, s) {
       _logger.severe(e, s);
     }
 
-    foundNonZeroValue = false;
+    // foundNonZeroValue = false;
 
-    for (final value in output.getDoubleList()) {
-      if (value != 0) {
-        foundNonZeroValue = true;
-      }
-    }
-    _logger.info("foundNonZeroValue?" + foundNonZeroValue.toString());
+    // for (final value in output.getDoubleList()) {
+    //   if (value != 0) {
+    //     foundNonZeroValue = true;
+    //   }
+    // }
+    // _logger.info("foundNonZeroValue?" + foundNonZeroValue.toString());
 
     final inferenceTimeElapsed =
         DateTime.now().millisecondsSinceEpoch - inferenceTimeStart;
