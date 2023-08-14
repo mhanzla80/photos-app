@@ -5047,16 +5047,6 @@ class S {
     );
   }
 
-  /// `{count} selected`
-  String itemSelectedCount(int count) {
-    return Intl.message(
-      '$count selected',
-      name: 'itemSelectedCount',
-      desc: 'Text to indicate number of items selected',
-      args: [count],
-    );
-  }
-
   /// `Share`
   String get share {
     return Intl.message(
@@ -5380,6 +5370,16 @@ class S {
     return Intl.message(
       'Rename album',
       name: 'renameAlbum',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Convert to album`
+  String get convertToAlbum {
+    return Intl.message(
+      'Convert to album',
+      name: 'convertToAlbum',
       desc: '',
       args: [],
     );
@@ -7570,6 +7570,26 @@ class S {
     return Intl.message(
       'Invite your friends to ente',
       name: 'inviteYourFriendsToEnte',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Failed to download video`
+  String get failedToDownloadVideo {
+    return Intl.message(
+      'Failed to download video',
+      name: 'failedToDownloadVideo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Crash reporting`
+  String get crashReporting {
+    return Intl.message(
+      'Crash reporting',
+      name: 'crashReporting',
       desc: '',
       args: [],
     );

@@ -20,7 +20,7 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'pl';
 
-  static String m32(passwordStrengthValue) =>
+  static String m31(passwordStrengthValue) =>
       "Siła hasła: ${passwordStrengthValue}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
@@ -89,6 +89,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Wprowadź hasło"),
         "enterYourRecoveryKey": MessageLookupByLibrary.simpleMessage(
             "Wprowadź swój klucz odzyskiwania"),
+        "failedToDownloadVideo":
+            MessageLookupByLibrary.simpleMessage("Failed to download video"),
         "feedback": MessageLookupByLibrary.simpleMessage("Informacja zwrotna"),
         "forgotPassword":
             MessageLookupByLibrary.simpleMessage("Nie pamiętam hasła"),
@@ -122,7 +124,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "password": MessageLookupByLibrary.simpleMessage("Hasło"),
         "passwordChangedSuccessfully": MessageLookupByLibrary.simpleMessage(
             "Hasło zostało pomyślnie zmienione"),
-        "passwordStrength": m32,
+        "passwordStrength": m31,
         "passwordWarning": MessageLookupByLibrary.simpleMessage(
             "Nie przechowujemy tego hasła, więc jeśli go zapomnisz, <underline>nie będziemy w stanie odszyfrować Twoich danych</underline>"),
         "pleaseTryAgain":

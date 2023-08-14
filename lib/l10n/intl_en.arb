@@ -719,16 +719,6 @@
   "addToAlbum": "Add to album",
   "delete": "Delete",
   "hide": "Hide",
-  "itemSelectedCount": "{count} selected",
-  "@itemSelectedCount": {
-    "description": "Text to indicate number of items selected",
-    "placeholders": {
-      "count": {
-        "example": "1|2|3",
-        "type": "int"
-      }
-    }
-  },
   "share": "Share",
   "unhideToAlbum": "Unhide to album",
   "restoreToAlbum": "Restore to album",
@@ -776,6 +766,7 @@
   },
   "deleteAll": "Delete All",
   "renameAlbum": "Rename album",
+  "convertToAlbum": "Convert to album",
   "setCover": "Set cover",
   "@setCover": {
     "description": "Text to set cover photo for an album"
@@ -979,7 +970,7 @@
   "centerPoint": "Center point",
   "pickCenterPoint": "Pick center point",
   "useSelectedPhoto": "Use selected photo",
-  "resetToDefault" : "Reset to default",
+  "resetToDefault": "Reset to default",
   "@resetToDefault": {
     "description": "Button text to reset cover photo to default"
   },
@@ -1102,5 +1093,7 @@
   "noAlbumsSharedByYouYet": "No albums shared by you yet",
   "sharedWithYou": "Shared with you",
   "sharedByYou": "Shared by you",
-  "inviteYourFriendsToEnte": "Invite your friends to ente"
+  "inviteYourFriendsToEnte": "Invite your friends to ente",
+  "failedToDownloadVideo": "Failed to download video",
+  "crashReporting": "Crash reporting"
 }
